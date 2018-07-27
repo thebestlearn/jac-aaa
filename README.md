@@ -39,6 +39,42 @@ CREATE TABLE `oauth_refresh_token` (
   `authentication` blob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `sys_user` (
+  `USERNAME` varchar(30) NOT NULL,
+  `PASSWORD` varchar(64) NOT NULL,
+  `EMAIL` varchar(50) DEFAULT NULL,
+  `ADDRESS` varchar(100) DEFAULT NULL,
+  `AGE` int(11) DEFAULT NULL,
+  `EXPIRED` int(11) DEFAULT NULL,
+  `DISABLED` int(11) DEFAULT NULL,
+  PRIMARY KEY (`USERNAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*
+* 用户属性表
+*/
+CREATE TABLE SYS_ATTRS (
+  USERNAME VARCHAR(30) NOT NULL,
+  ATTR_KEY VARCHAR(50) NOT NULL,
+  ATTR_VAL     VARCHAR(100) NOT NULL
+);
+
+---用户属性表
+INSERT INTO SYS_ATTRS VALUES ('admin', 'group', 'ADMIN_ROLE');
+INSERT INTO SYS_ATTRS VALUES ('admin', 'group', 'MANAGEMENT_ROLE');
+INSERT INTO SYS_ATTRS VALUES ('admin', 'group', 'DEV_ROLE');
+INSERT INTO SYS_ATTRS VALUES ('admin', 'school', 'GuangZhou');
+INSERT INTO SYS_ATTRS VALUES ('admin', 'school', 'ZhuHai');
+INSERT INTO SYS_ATTRS VALUES ('zhangsan', 'group', 'DEV_ROLE');
+
+
+INSERT INTO `sys_user` VALUES ('admin', '202cb962ac59075b964b07152d234b70', 'huang.wenbin@foxmail.com', '广州天河', 24, 0, 0);
+INSERT INTO `sys_user` VALUES ('wangwu', '827ccb0eea8a706c4c34a16891f84e7b', 'wangwu@foxmail.com', '广州番禺', 27, 1, 0);
+INSERT INTO `sys_user` VALUES ('zhangsan', '25d55ad283aa400af464c76d713c07ad', 'zhangsan@foxmail.com', '广州越秀', 26, 0, 0);
+INSERT INTO `sys_user` VALUES ('zhaosi', '81dc9bdb52d04dc20036dbd8313ed055', 'zhaosi@foxmail.com', '广州海珠', 25, 0, 1);
+
+INSERT INTO `oauth_client_details` VALUES ('clientapp', 'Bearer', '112233', 'snsapi_base', 'password,refresh_token,client_credentials', 'https://www.baidu.com', NULL, 3600, 3700, NULL, NULL);
+
 其中oauth_client_details表需要手动配置client信息（后续需要增加维护页面），其他俩个表用来存储生成的token相关信息
 
 运行打包为正常的springboot项目，不多赘述
