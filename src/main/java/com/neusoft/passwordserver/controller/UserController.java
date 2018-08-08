@@ -70,13 +70,4 @@ public class UserController {
         return ResponseEntity.ok(revokeResult);
     }
 
-    @RequestMapping("/revoke")
-    @ResponseBody
-    public ResponseEntity<?> recvoke(String url) {
-
-        RevokeResult revokeResult = new RevokeResult();
-        revokeResult.setRevokeToken(true);
-        return ResponseEntity.ok(revokeResult);
-    }
-
 }
